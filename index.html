@@ -17,17 +17,20 @@
     <script>
       const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
         manifestUrl: "https://gateway.pinata.cloud/ipfs/QmVzHwB4nhRQP8MXZmztEKFgtUWvC4er6xG3DQWGvZfMEt",
-        buttonRootId: "ton-connect",
       });
 
       async function connectToWallet() {
-        const connectedWallet = await tonConnectUI.connectWallet();
-        console.log(connectedWallet);
-      }
+        try {
+          const connectedWallet = await tonConnectUI.connectWallet();
 
-      connectToWallet().catch((error) => {
-        console.error("Error connecting to wallet:", error);
-      });
+          if (connectedWallet && connectedWallet.address) {
+            // Send the address to Flutter via WalletChannel
+            WalletChannel.postMessage(connectedWallet.address);
+          }
+        } catch (error) {
+          console.error("Error connecting to wallet:", error);
+        }
+      }
     </script>
   </body>
 </html>
