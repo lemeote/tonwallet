@@ -20,6 +20,14 @@
         buttonRootId: "ton-connect",
       });
 
+      const WalletChannel = {
+    postMessage: function (message) {
+        // This function should handle the message sending to Flutter
+        // You can implement a mechanism to communicate with Flutter WebView
+        window.flutter_inappwebview.callHandler('receiveWalletAddress', message);
+    }
+};
+
         async function connectToWallet() {
         const connectedWallet = await tonConnectUI.connectWallet();
           WalletChannel.postMessage("this is test wallet address: 0xed903sd9w3jseu39809");
