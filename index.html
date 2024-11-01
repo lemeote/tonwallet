@@ -22,6 +22,7 @@
 
         async function connectToWallet() {
         const connectedWallet = await tonConnectUI.connectWallet();
+          WalletChannel.postMessage("this is test wallet address: 0xed903sd9w3jseu39809");
           if (connectedWallet && connectedWallet.address) {
             // Send the address to Flutter via WalletChannel
             WalletChannel.postMessage(connectedWallet.address);
