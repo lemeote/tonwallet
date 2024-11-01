@@ -20,18 +20,19 @@
         buttonRootId: "ton-connect",
       });
 
-      async function connectToWallet() {
-        try {
-          const connectedWallet = await tonConnectUI.connectWallet();
-
+        async function connectToWallet() {
+        const connectedWallet = await tonConnectUI.connectWallet();
           if (connectedWallet && connectedWallet.address) {
             // Send the address to Flutter via WalletChannel
             WalletChannel.postMessage(connectedWallet.address);
           }
-        } catch (error) {
-          console.error("Error connecting to wallet:", error);
-        }
+        console.log(connectedWallet);
       }
+
+      connectToWallet().catch((error) => {
+        console.error("Error connecting to wallet:", error);
+      });
+          
       async function sendTransaction(sendWalletAddress, receiveWalletAddress, amount) {
         if (!sendWalletAddress) {
           console.error("Wallet address not set. Please connect your wallet.");
