@@ -31,6 +31,26 @@
           console.error("Error connecting to wallet:", error);
         }
       }
+      async function sendTransaction(sendWalletAddress, receiveWalletAddress, amount) {
+        if (!sendWalletAddress) {
+          console.error("Wallet address not set. Please connect your wallet.");
+          return;
+        }
+
+        try {
+          const transactionParams = {
+            to: receiveWalletAddress,      // Use the address received from Flutter
+            value: $amount,    // Example amount in nanoton (1 TON = 1,000,000,000 nanoton)
+            data: "",               // Additional data payload if needed
+          };
+
+          const tonConnectUI = new TON_CONNECT_UI.TonConnectUI();
+          const result = await tonConnectUI.sendTransaction(transactionParams);
+          console.log("Transaction status:", result.status);
+        } catch (error) {
+          console.error("Error sending transaction:", error);
+        }
+      }
     </script>
   </body>
 </html>
